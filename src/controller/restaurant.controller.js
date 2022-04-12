@@ -35,8 +35,7 @@ restaurantsCtrl.createRestaurant= async (req,res)=>{
 };
 
 restaurantsCtrl.renderRestaurants=async (req,res)=>{
-  const id = req.params.id
-    const restaurants=await Restaurant.find(id)
+    const restaurants=await Restaurant.find({ user: req.user.id })
     .sort({ date: "desc" })
     .lean();
     res.render('restaurants/all_restaurants',{restaurants})

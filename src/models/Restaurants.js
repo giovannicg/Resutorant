@@ -4,7 +4,7 @@ const restaurantSchema= new Schema({
     name:{type:String,required:true},
     location:{type:String,required:true},
     speciality:{type:String,required:true},
-    user:{type:String,required:false},
+    user:{type:String,required:true},
     score:{type:Number,required:false}
 },{
     timestamps:true
