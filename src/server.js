@@ -6,6 +6,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 require('./config/passport');
+const createAdminUser =require('./libs/createUser');
 
 const index=require('./routes/index.routes');
 const restaurants=require('./routes/restaurant.routes');
@@ -19,6 +20,7 @@ var handlebars = require('express-handlebars').create({
   });
 
 const app=express();
+createAdminUser();
 
 
 //Settings
