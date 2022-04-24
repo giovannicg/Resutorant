@@ -1,11 +1,15 @@
 const User = require('../models/User');
 const passport = require('passport');
 const userCtrl = {};
-const emailAdmin = "admin@localhost"
+const userType = "admin"
 
 userCtrl.allUsers = (req, res) => {
- 
+  if(req.params.userType=userType){
     res.render('users');
+  }else{
+    errors.push({ text: "Solo puede acceder el administrador." });
+  }
+    
   
 };
 
