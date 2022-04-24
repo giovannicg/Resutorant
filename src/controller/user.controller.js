@@ -1,6 +1,13 @@
 const User = require('../models/User');
 const passport = require('passport');
 const userCtrl = {};
+const emailAdmin = "admin@localhost"
+
+userCtrl.allUsers = (req, res) => {
+ 
+    res.render('users');
+  
+};
 
 userCtrl.renderSignUpForm = (req, res) => {
   res.render('signup');

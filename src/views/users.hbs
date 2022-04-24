@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="box-nav d-flex justify-between">
+    <a href="/signup" class="form-label mt-4">
+      <span class="breadcrumb-item">Nuevo Usuario
+        <i class="fas fa-user"></i></span>
+    </a>
+  </div>
+
+  <!-- form handling -->
+
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>@Email</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each user}}
+        <tr class="table-primary">
+          <td>
+            {{name}}
+          </td>
+          <td>
+            {{email}}
+          </td>
+          <td>
+            {{userType}}
+          </td>
+          <td>
+            {{date}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
