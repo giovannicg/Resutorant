@@ -1,25 +1,17 @@
 const User = require('../models/User');
 const passport = require('passport');
 const userCtrl = {};
-const userType = "admin"
 
-userCtrl.allUsers = (req, res) => {
-  if(req.params.userType=userType){
-    res.render('users');
-  }else{
-    errors.push({ text: "Solo puede acceder el administrador." });
-  }
-    
-  
-};
+
+
 
 userCtrl.renderSignUpForm = (req, res) => {
   res.render('signup');
 };
 
 userCtrl.signupPost = async (req, res) => {
-  let errors = [];
-  const { name, email, password, confirm_password,userType } = req.body;
+  const errors = [];
+  const { name, email,cedula,lastname, password,direccion,userType, confirm_password } = req.body;
   if (password != confirm_password) {
     errors.push({ text: "Passwords do not match." });
   }
@@ -29,21 +21,29 @@ userCtrl.signupPost = async (req, res) => {
   if (errors.length > 0) {
     res.render("signup", {
       errors,
-      userType,
+      lastname,
+      cedula,
+      direccion,
       name,
       email,
+      userType,
       password,
       confirm_password,
     });
   } else {
-    // Look for email coincidence
+    // Look for email coincidence and cedula
     const emailUser = await User.findOne({ email: email });
+    const cedulaUser = await User.findOne({cedula:cedula})
     if (emailUser) {
       req.flash("error_msg", "The Email is already in use.");
       res.redirect("/signup");
-    } else {
+    } 
+    if(cedulaUser) {
+      req.flash("error_msg", "The Cedula is already exist.");
+      res.redirect("/signup");
+    }else {
       // Saving a New User
-      const newUser = new User({ name, email, password,userType });
+      const newUser = new User({name, email,cedula,lastname, password,direccion,userType:'normal', confirm_password });
       newUser.password = await newUser.encryptPassword(password);
       await newUser.save();
       req.flash("success_msg", "You are registered.");
@@ -58,7 +58,7 @@ userCtrl.renderSigninForm = (req, res) => {
 };
 
 userCtrl.signinPost = passport.authenticate("local", {
-  successRedirect: "/restaurant",
+  successRedirect: "/student",
   failureRedirect: "/signin",
   failureFlash: true,
 });

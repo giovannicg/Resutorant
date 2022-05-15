@@ -3,24 +3,25 @@ const {  renderSignUpForm,
     signupPost,
     renderSigninForm,
     signinPost,
-    allUsers,
     logout,
 } = require('../controller/user.controller');
-const isAuthenticated = require('../helpers/auth');
 
 const router = Router();
 
 // Routes
-router.get('/signup', renderSignUpForm);
 
+//signup users
+router.get('/signup', renderSignUpForm);
 router.post("/signup", signupPost);
 
+//signion users
 router.get('/signin', renderSigninForm);
-
 router.post("/signin", signinPost);
 
+//logout session
 router.get('/logout', logout);
 
-router.get('/users',isAuthenticated,allUsers);
+
+
 
 module.exports = router;

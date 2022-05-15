@@ -1,0 +1,31 @@
+<div class="row">
+    {{#each students}}
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title d-flex justify-content-between align-items-center">
+                    Nombre: {{name}} <a href="/student/edit/{{_id}}" class="btn border-shadow update">
+                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span></a>
+                </h4>
+                <p>Apellido: {{lastname}}</p>
+                <p>Edad: {{age}}</p>
+                <p>Nivel: {{level}}</p>
+                <form action="/student/delete/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE" id="">
+                    <button class="btn btn-danger  btn-block btn-sm">
+                        <i class='bx bxs-x-circle'></i> Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="card mx-auto">
+        <div class="card-body">
+            <h1>Hello {{users.name}}</h1>
+            <p clsss="lead">No hay Estudiantes todavia.</p>
+            <a href="/student/add" class="btn btn-success btn-block">Añade uno!</a>
+        </div>
+    </div>
+    {{/each}}
+</div>
