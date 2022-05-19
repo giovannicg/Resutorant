@@ -20,11 +20,11 @@ adminCtrl.renderAllUsers = async(req, res) => {
 };
 adminCtrl.renderEditUser=async (req,res)=>{
     let user = await User.findById(req.params.id).lean();
-    if (user = req.user.id) {
+    /*if (user = req.user.id) {
       req.flash("error_msg", "Not Authorized");
       return res.redirect("/admin");
-    }
-    res.render('edit_user');
+    }*/
+    res.render('edit_user',{user});
 }
 
 adminCtrl.updateUser=async(req,res)=>{
