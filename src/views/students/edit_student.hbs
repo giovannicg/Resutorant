@@ -7,7 +7,7 @@
 </div>
 {{/each}}
 
-<div class="col-md-4 mx-auto">
+<div class="col-md-5 mx-auto">
   <div class="card">
     <div class="card-header">
       <h3>Edit Student</h3>
@@ -16,7 +16,7 @@
       <form action="/student/edit-student/{{student._id}}?_method=PUT" method="POST">
         <input type="hidden" name="_method" value="PUT">
         <div class="form-group">
-          <input type="text" name="name" class="form-control" value="{{student.name}}" />
+          <input type="text" name="name" class="form-control-plaintext" value="{{student.name}}" />
         </div>
         <div class="form-group">
           <input type="text" name="location" class="form-control" value="{{student.lastname}}" />
