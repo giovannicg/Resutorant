@@ -12,6 +12,7 @@ const index=require('./routes/index.routes');
 const students=require('./routes/students.routes');
 const users=require('./routes/user.routes');
 const admin=require('./routes/admin.routes');
+const payments=require('./routes/payments.routes');
 
 var handlebars = require('express-handlebars').create({
     layoutsDir: path.join(__dirname, "views/layouts"),
@@ -62,6 +63,7 @@ app.use(index);
 app.use(students);
 app.use(users);
 app.use(admin);
+app.use(payments);
 
 
 //Static Files
