@@ -47,7 +47,7 @@ paymentsCtrl.renderpayments=async (req,res)=>{
 paymentsCtrl.deletepayments=async (req,res)=>{
     await Payments.findByIdAndDelete(req.params.id);
     req.flash("success_msg", "student Deleted Successfully");
-    res.redirect("/payments");
+    res.redirect("payments");
 }
 
 module.exports=paymentsCtrl;

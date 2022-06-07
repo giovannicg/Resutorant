@@ -5,12 +5,12 @@ const router = Router();
 
 //new nrestaurant
 router.get("/payments/add",isAuthenticated, renderpaymentsForm);
-router.post("/payments/new-payment",isAuthenticated, createpayments);
+router.post("payments/new-payment",isAuthenticated, createpayments);
 
 //all restaurants
 router.get("/payments",isAuthenticated, renderpayments);
 
-router.delete("/payments/:id",isAuthenticated, deletepayments); 
+router.delete("payments/:id",isAuthenticated, deletepayments); 
 
 
 module.exports = router;
