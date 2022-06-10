@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const {renderAllUsers,deleteUser, renderEditUser,updateUser} = require('../controller/admin.controller');
-const{isAuthenticated}=require('../helpers/auth');
+const{isAuthenticated} = require('../helpers/auth');
 
 const router = Router();
 
