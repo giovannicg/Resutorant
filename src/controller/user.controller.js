@@ -1,17 +1,6 @@
 const User = require('../models/User');
 const passport = require('passport');
 const userCtrl = {};
-const userType = "admin"
-
-userCtrl.allUsers = (req, res) => {
-  if(req.params.userType=userType){
-    res.render('users');
-  }else{
-    errors.push({ text: "Solo puede acceder el administrador." });
-  }
-    
-  
-};
 
 userCtrl.renderSignUpForm = (req, res) => {
   res.render('signup');
@@ -58,7 +47,7 @@ userCtrl.renderSigninForm = (req, res) => {
 };
 
 userCtrl.signinPost = passport.authenticate("local", {
-  successRedirect: "/restaurant",
+  successRedirect: "/restaurant/myRestaurants",
   failureRedirect: "/signin",
   failureFlash: true,
 });

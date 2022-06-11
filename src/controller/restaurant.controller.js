@@ -4,9 +4,13 @@ const restaurantsCtrl = {};
 restaurantsCtrl.renderRestaurantForm=(req,res)=>{
     res.render('restaurants/new_restaurant')
 };
+restaurantsCtrl.renderRestaurants = async (req, res) => {
+    const restaurants = await Restaurant.find(req.body.name).sort({ date: "desc" });
+    res.render('restaurants/restaurants', { restaurants });
+};
 
 restaurantsCtrl.createRestaurant= async (req,res)=>{
-    const { name,location,speciality } = req.body;
+  const { name,location,speciality } = req.body;
   const errors = [];
   if (!name) {
     errors.push({ text: "Please Write a name." });
@@ -29,12 +33,12 @@ restaurantsCtrl.createRestaurant= async (req,res)=>{
     newRestaurant.user = req.user.id;
     await newRestaurant.save();
     req.flash("success_msg", "Restaurant Added Successfully");
-    res.redirect("/restaurant");
+    res.redirect("/restaurant/myRestaurants");
   }
     
 };
 
-restaurantsCtrl.renderRestaurants=async (req,res)=>{
+restaurantsCtrl.renderRestaurantsbyUser=async (req,res)=>{
     const restaurants=await Restaurant.find({ user: req.user.id })
     .sort({ date: "desc" })
     .lean();
@@ -45,7 +49,7 @@ restaurantsCtrl.renderEditRestaurant=async (req,res)=>{
     const restaurant = await Restaurant.findById(req.params.id).lean();
     if (restaurant.user != req.user.id) {
       req.flash("error_msg", "Not Authorized");
-      return res.redirect("/restaurant");
+      return res.redirect("/restaurant/myRestaurants");
     }
     res.render('restaurants/edit_restaurant',{restaurant});
 }
@@ -54,11 +58,11 @@ restaurantsCtrl.updateRestaurant=async(req,res)=>{
    const { name,location,speciality } = req.body;
    await Restaurant.findByIdAndUpdate(req.params.id,{ name,location,speciality})
    req.flash("success_msg", "Restaurant Updated Successfully");
-   res.redirect("/restaurant");
+   res.redirect("/restaurant/myRestaurants");
 }
 restaurantsCtrl.deleteRestaurant=async (req,res)=>{
     await Restaurant.findByIdAndDelete(req.params.id);
     req.flash("success_msg", "Restaurant Deleted Successfully");
-    res.redirect("/restaurant");
+    res.redirect("/restaurant/myRestaurants");
 }
 module.exports=restaurantsCtrl;
