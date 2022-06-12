@@ -5,7 +5,9 @@ restaurantsCtrl.renderRestaurantForm=(req,res)=>{
     res.render('restaurants/new_restaurant')
 };
 restaurantsCtrl.renderRestaurants = async (req, res) => {
-    const restaurants = await Restaurant.find(req.body.name).sort({ date: "desc" });
+    const restaurants = await Restaurant.find()
+    .sort({ date: "desc" })
+    .lean();
     res.render('restaurants/restaurants', { restaurants });
 };
 
