@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const {
+  renderRatings,
+  renderNewRatings,
   renderRestaurantForm,
   createRestaurant,
   renderRestaurants,
@@ -22,6 +24,10 @@ router.get("/restaurant",isAuthenticated, renderRestaurants);
 //edit restaurants
 router.get("/restaurant/edit/:id",isAuthenticated, renderEditRestaurant);
 router.put("/restaurant/edit-restaurant/:id",isAuthenticated, updateRestaurant);
+
+// new ratings
+router.get("/restaurant/ratings/new/:id",isAuthenticated, renderRatings);
+router.post("/restaurant/ratings/",isAuthenticated, renderNewRatings);
 
 //delete restaurants
 router.delete("/restaurant/delete/:id",isAuthenticated, deleteRestaurant);
