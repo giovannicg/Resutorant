@@ -69,30 +69,6 @@ restaurantsCtrl.renderEditRestaurant=async (req,res)=>{
     res.render('restaurants/edit_restaurant',{restaurant});
 }
 
-restaurantsCtrl.renderRatings = async (req, res) => {
-  const restaurant=await Restaurant.findById(req.params.id).lean();
-  res.render('restaurants/ratings', { restaurant });
-};
-
-restaurantsCtrl.renderNewRatings = async (req, res) => {
-  const restaurant=await Restaurant.findById(req.params.id).lean();
-    const { score } = req.body;
-    const errors = [];
-    if (!score) {
-      errors.push({ text: "Please Write a score." });
-    }
-    if (errors.length > 0) {
-      res.redirect("restaurant/")
-    } else {
-      const newRatings = new Ratings({score});
-      newRatings.restaurant = restaurant;
-      newRatings.user = req.user.id;
-      await newRatings.save();
-
-      req.flash("success_msg", "Restaurant Rating Successfully");
-      res.redirect("restaurant/");
-    }
-};
 
 restaurantsCtrl.updateRestaurant=async(req,res)=>{
    const { name,location,speciality } = req.body;

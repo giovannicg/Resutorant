@@ -8,7 +8,7 @@ userCtrl.renderSignUpForm = (req, res) => {
 
 userCtrl.signupPost = async (req, res) => {
   let errors = [];
-  const { name, email, password, confirm_password,userType } = req.body;
+  const { name, email, password, confirm_password,userType,latitud,longitud } = req.body;
   if (password != confirm_password) {
     errors.push({ text: "Passwords do not match." });
   }
@@ -23,6 +23,8 @@ userCtrl.signupPost = async (req, res) => {
       email,
       password,
       confirm_password,
+      latitud,
+      longitud,
     });
   } else {
     // Look for email coincidence
@@ -32,7 +34,7 @@ userCtrl.signupPost = async (req, res) => {
       res.redirect("/signup");
     } else {
       // Saving a New User
-      const newUser = new User({ name, email, password,userType });
+      const newUser = new User({ name, email, password,userType,latitud,longitud });
       newUser.password = await newUser.encryptPassword(password);
       await newUser.save();
       req.flash("success_msg", "You are registered.");
@@ -47,7 +49,7 @@ userCtrl.renderSigninForm = (req, res) => {
 };
 
 userCtrl.signinPost = passport.authenticate("local", {
-  successRedirect: "/restaurant/myRestaurants",
+  successRedirect: "/restaurant/",
   failureRedirect: "/signin",
   failureFlash: true,
 });

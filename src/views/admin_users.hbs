@@ -7,10 +7,9 @@
                     Nombre: {{name}} <a href="/admin/edit/{{_id}}" class="btn border-shadow update">
                         <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span></a>
                 </h4>
-                <p>Apellido: {{lastname}}</p>
                 <p>email: {{email}}</p>
-                <p>Cedula: {{cedula}}</p>
-                <p>Direccion: {{direccion}}</p>
+                <p>email: {{latitud}}</p>
+                <p>email: {{longitud}}</p>
                 <form action="/admin/delete/{{_id}}?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE" id="">
                     <button class="btn btn-danger  btn-block btn-sm">

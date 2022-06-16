@@ -28,8 +28,8 @@ adminCtrl.renderEditUser=async (req,res)=>{
 }
 
 adminCtrl.updateUser=async(req,res)=>{
-   const {name, email,userType} = req.body;
-   await User.findByIdAndUpdate(req.params.id,{name, email,userType})
+   const {name, email,userType,latitud,logitud} = req.body;
+   await User.findByIdAndUpdate(req.params.id,{name, email,userType,latitud,logitud});
    req.flash("success_msg", "User Updated Successfully");
    res.redirect("/admin");
 }
