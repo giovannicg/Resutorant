@@ -7,6 +7,8 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true },
     userType: { type: String, required: true},
+    latitud: { type: Number, required: true},
+    longitud: { type: Number, required: true},
     date: { type: Date, default: Date.now },
   },
   {

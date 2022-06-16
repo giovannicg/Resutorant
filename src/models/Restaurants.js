@@ -5,7 +5,10 @@ const restaurantSchema= new Schema({
     location:{type:String,required:true},
     speciality:{type:String,required:true},
     user:{type:String,required:true},
-    score:{type:Number,required:false}
+    score:{type:Number,required:false},
+    latitud:{type:Number,required:true},
+    longitud:{type:Number,required:true},
+    date: { type: Date, default: Date.now },
 },{
     timestamps:true
 });

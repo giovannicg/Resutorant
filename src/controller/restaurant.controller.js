@@ -13,7 +13,7 @@ restaurantsCtrl.renderRestaurants = async (req, res) => {
 };
 
 restaurantsCtrl.createRestaurant= async (req,res)=>{
-  const { name,location,speciality } = req.body;
+  const { name,location,speciality,score,latitud,longitud } = req.body;
   const errors = [];
   if (!name) {
     errors.push({ text: "Please Write a name." });
@@ -24,15 +24,27 @@ restaurantsCtrl.createRestaurant= async (req,res)=>{
   if (!location) {
     errors.push({ text: "Please Write a location" });
   }
+  if (!score) {
+    errors.push({ text: "Please Write a score" });
+  }
+  if(!latitud){
+    errors.push({ text: "Please Write a latitud" });
+  }
+  if(!longitud){
+    errors.push({ text: "Please Write a longitud" });
+  }
   if (errors.length > 0) {
     res.render("restaurant/new_restaurant", {
       errors,
       name,
       location,
-      speciality
+      speciality,
+      score,
+      latitud,
+      longitud,
     });
   } else {
-    const newRestaurant = new Restaurant({ name,location,speciality});
+    const newRestaurant = new Restaurant({ name,location,speciality,score,latitud,longitud });
     newRestaurant.user = req.user.id;
     await newRestaurant.save();
     req.flash("success_msg", "Restaurant Added Successfully");
@@ -63,6 +75,7 @@ restaurantsCtrl.renderRatings = async (req, res) => {
 };
 
 restaurantsCtrl.renderNewRatings = async (req, res) => {
+  const restaurant=await Restaurant.findById(req.params.id).lean();
     const { score } = req.body;
     const errors = [];
     if (!score) {
@@ -72,8 +85,8 @@ restaurantsCtrl.renderNewRatings = async (req, res) => {
       res.redirect("restaurant/")
     } else {
       const newRatings = new Ratings({score});
+      newRatings.restaurant = restaurant;
       newRatings.user = req.user.id;
-      newRatings.restaurant = req.restaurant.id;
       await newRatings.save();
 
       req.flash("success_msg", "Restaurant Rating Successfully");
