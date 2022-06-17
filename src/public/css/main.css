@@ -1,3 +1,10 @@
 body{
     background-color:black
 }
+fieldset{
+    position: relative;
+    z-index: 3;
+}
+.form-check{
+    color: white;
+}
