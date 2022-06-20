@@ -49,7 +49,7 @@ userCtrl.renderSigninForm = (req, res) => {
 };
 
 userCtrl.signinPost = passport.authenticate("local", {
-  successRedirect: "/restaurant/",
+  successRedirect: "/restaurant",
   failureRedirect: "/signin",
   failureFlash: true,
 });

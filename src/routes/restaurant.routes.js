@@ -7,6 +7,7 @@ const {
   renderEditRestaurant,
   updateRestaurant,
   deleteRestaurant,
+  filter,
 } = require("../controller/restaurant.controller");
 const isAuthenticated = require('../helpers/auth')
 const router = Router();
@@ -17,7 +18,8 @@ router.post("/restaurant/new-restaurant",isAuthenticated, createRestaurant);
 
 //all restaurants
 router.get("/restaurant/myRestaurants",isAuthenticated, renderRestaurantsbyUser);
-router.get("/restaurant",isAuthenticated, renderRestaurants);
+router.get("/restaurant",isAuthenticated, renderRestaurants,filter);
+router.post("/restaurant/filter",isAuthenticated, filter);
 
 //edit restaurants
 router.get("/restaurant/edit/:id",isAuthenticated, renderEditRestaurant);

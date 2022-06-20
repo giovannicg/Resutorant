@@ -7,10 +7,12 @@ const flash = require('connect-flash');
 const session = require('express-session');
 require('./config/passport');
 const createAdminUser =require('./libs/createUser');
+const Restaurant = require("./models/Restaurants");
 
 const index=require('./routes/index.routes');
 const restaurants=require('./routes/restaurant.routes');
 const users=require('./routes/user.routes');
+//const admin=require('./routes/admin.routes');
 
 var handlebars = require('express-handlebars').create({
     layoutsDir: path.join(__dirname, "views/layouts"),
@@ -61,6 +63,7 @@ app.use((req, res, next) => {
 app.use(index);
 app.use(restaurants);
 app.use(users);
+//app.use(admin);
 
 
 //Static Files

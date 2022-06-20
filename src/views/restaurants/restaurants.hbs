@@ -16,69 +16,71 @@
     </div>
     {{/each}}
 </div>
-<fieldset class="form-group ">
-    <legend class="mt-4">Tipo de Comida</legend>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkPollo">
-        <label class="form-check-label" for="flexCheckDefault">
-            pollo
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkSuhi" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            sushi
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            comida rapida
-        </label>
-    </div>
-    <legend class="mt-4">Ubicacion</legend>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            < 20km </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            > 20km
-        </label>
-    </div>
-    <legend class="mt-4">Calificacion</legend>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            5 estrellas
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            4 estrellas
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            3 estrellas
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            2 estrellas
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="checkComidaRapida" checked="">
-        <label class="form-check-label" for="flexCheckChecked">
-            1 estrella
-        </label>
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary align-center">Filtrar</button>
-</fieldset>
+<form action="/restaurant/filter" method="POST">
+    <fieldset class="form-group ">
+        <legend class="mt-4">Tipo de Comida</legend>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="speciality" value="pollo" id="checkPollo">
+            <label class="form-check-label" for="flexCheckDefault">
+                pollo
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="speciality" value="sushi" id="checkSuhi">
+            <label class="form-check-label" for="flexCheckDefault">
+                sushi
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="speciality" value="india" id="checkHamburgueza">
+            <label class="form-check-label" for="flexCheckDefault">
+                india
+            </label>
+        </div>
+        <legend class="mt-4">Ubicacion</legend>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="distancia" value="mas 20km" id="checkMas20km">
+            <label class="form-check-label" for="flexCheckDefault">
+                < 20km </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="distancia" value="menos 20km" id="checkMenos20km">
+            <label class="form-check-label" for="flexCheckDefault">
+                > 20km
+            </label>
+        </div>
+        <legend class="mt-4">Calificacion</legend>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="score" value="5" id="check5">
+            <label class="form-check-label" for="flexCheckDefault">
+                5 estrellas
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="score" value="4" id="check4">
+            <label class="form-check-label" for="flexCheckDefault">
+                4 estrellas
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="score" value="3" id="check3">
+            <label class="form-check-label" for="flexCheckDefault">
+                3 estrellas
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="score" value="2" id="check2">
+            <label class="form-check-label" for="flexCheckDefault">
+                2 estrellas
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="score" value="1" id="check1">
+            <label class="form-check-label" for="flexCheckDefault">
+                1 estrella
+            </label>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary align-center">Filtrar</button>
+    </fieldset>
+</form>
