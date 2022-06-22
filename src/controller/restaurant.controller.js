@@ -11,7 +11,7 @@ restaurantsCtrl.renderRestaurants = async (req, res) => {
 };
 
 restaurantsCtrl.createRestaurant = async (req, res) => {
-  const { name, location, speciality, score, latitud, longitud } = req.body;
+  const { name, location, speciality, score,precio, latitud, longitud } = req.body;
   const errors = [];
   if (!name) {
     errors.push({ text: "Please Write a name." });
@@ -38,6 +38,7 @@ restaurantsCtrl.createRestaurant = async (req, res) => {
       location,
       speciality,
       score,
+      precio,
       latitud,
       longitud,
     });
@@ -47,6 +48,7 @@ restaurantsCtrl.createRestaurant = async (req, res) => {
       location,
       speciality,
       score,
+      precio,
       latitud,
       longitud,
     });
@@ -91,27 +93,46 @@ restaurantsCtrl.filter = async (req, res) => {
             latidudRestaurant[i],
             longitudRestaurant[j]
           );
+          distancia.push(restaurants[i]);
       }
     }
     console.log(distancia);
   }
-
-  
-
-  res.render("restaurants/restaurants", {
-    restaurants: await Restaurant.find({
-      speciality: req.body.speciality,
-      score: req.body.score,
-    }).lean(),
-  });
+    if(req.body.speciality){
+      const restaurants = await Restaurant.find({speciality: req.body.speciality}).sort({score: 'desc'}).lean();
+      return res.render("restaurants/restaurants", { restaurants });
+    }
+    if(req.body.precio) {
+      const restaurants = await Restaurant.find({precio: req.body.precio}).sort({score: 'desc'}).lean();
+      return res.render("restaurants/restaurants", { restaurants });
+      console.log(req.body.precio);
+    }
+    if(req.body.speciality){
+      const restaurants = await Restaurant.find({speciality: req.body.speciality, $and: [{score: {$eq: req.body.score}}]}).sort({score: 'desc'}).lean();
+      return res.render("restaurants/restaurants", { restaurants });
+    } 
+    /*if (!req.body.speciality && !req.body.score){
+      return res.status(400).json({
+        status: 'error', 
+        error: 'req body cannot be empty',
+     });
+    }*/
+    
+ 
 };
 
+
+
 restaurantsCtrl.updateRestaurant = async (req, res) => {
-  const { name, location, speciality } = req.body;
+  const { name, location, speciality,score,precio,latitud,longitud } = req.body;
   await Restaurant.findByIdAndUpdate(req.params.id, {
     name,
     location,
     speciality,
+    score,
+    precio,
+    latitud,
+    longitud,
   });
   req.flash("success_msg", "Restaurant Updated Successfully");
   res.redirect("/restaurant/myRestaurants");
