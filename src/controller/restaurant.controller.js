@@ -11,7 +11,8 @@ restaurantsCtrl.renderRestaurants = async (req, res) => {
 };
 
 restaurantsCtrl.createRestaurant = async (req, res) => {
-  const { name, location, speciality, score,precio, latitud, longitud } = req.body;
+  const { name, location, speciality, score, precio, latitud, longitud } =
+    req.body;
   const errors = [];
   if (!name) {
     errors.push({ text: "Please Write a name." });
@@ -80,51 +81,47 @@ restaurantsCtrl.filter = async (req, res) => {
   const longitudUser = req.user.longitud;
   const restaurants = await Restaurant.find().lean();
   const latidudRestaurant = restaurants.map((restaurant) => restaurant.latitud);
-  const longitudRestaurant = restaurants.map((restaurant) => restaurant.longitud);
-  console.log(latidudRestaurant);
-  console.log(longitudRestaurant);
-  for (var i = 0; i < latidudRestaurant.length; i++) {
-    for (var j = 0; j < longitudRestaurant.length; j++) {
-      if (req.body.distancia1) {
-        var distancia =
+  const longitudRestaurant = restaurants.map(
+    (restaurant) => restaurant.longitud
+  );
+  const distancia = [];
+  if (req.body.distancia) {
+    for (var i = 0; i < latidudRestaurant.length; i++) {
+      for (var j = 0; j < longitudRestaurant.length; j++) {
+        var km =
           getKilometros(
             latitudUser,
             longitudUser,
             latidudRestaurant[i],
             longitudRestaurant[j]
           );
-          distancia.push(restaurants[i]);
       }
+      distancia.push(km);
     }
-    console.log(distancia);
-  }
-    if(req.body.speciality){
-      const restaurants = await Restaurant.find({speciality: req.body.speciality}).sort({score: 'desc'}).lean();
-      return res.render("restaurants/restaurants", { restaurants });
-    }
-    if(req.body.precio) {
-      const restaurants = await Restaurant.find({precio: req.body.precio}).sort({score: 'desc'}).lean();
-      return res.render("restaurants/restaurants", { restaurants });
-      console.log(req.body.precio);
-    }
-    if(req.body.speciality){
-      const restaurants = await Restaurant.find({speciality: req.body.speciality, $and: [{score: {$eq: req.body.score}}]}).sort({score: 'desc'}).lean();
-      return res.render("restaurants/restaurants", { restaurants });
-    } 
-    /*if (!req.body.speciality && !req.body.score){
-      return res.status(400).json({
-        status: 'error', 
-        error: 'req body cannot be empty',
-     });
-    }*/
     
- 
+  }
+  if (req.body.speciality) {
+    const restaurants = await Restaurant.find({
+      speciality: req.body.speciality,
+    })
+      .sort({ score: "desc" })
+      .lean();
+    return res.render("restaurants/restaurants", { restaurants });
+  }
+  if (req.body.precio) {
+    const restaurants = await Restaurant.find({
+      precio: req.body.precio ,
+    })
+      .sort({ score: "desc" })
+      .lean();
+    console.log(req.body.precio);
+    return res.render("restaurants/restaurants", { restaurants });
+  }
 };
 
-
-
 restaurantsCtrl.updateRestaurant = async (req, res) => {
-  const { name, location, speciality,score,precio,latitud,longitud } = req.body;
+  const { name, location, speciality, score, precio, latitud, longitud } =
+    req.body;
   await Restaurant.findByIdAndUpdate(req.params.id, {
     name,
     location,
@@ -149,14 +146,14 @@ getKilometros = function (lat1, lon1, lat2, lon2) {
     return (x * Math.PI) / 180;
   };
   var R = 6378.137; //Radio de la tierra en km
-  var dLat = rad((lat2) - (lat1));
-  var dLong = rad((lon2) - (lon1));
+  var dLat = rad(lat2 - lat1);
+  var dLong = rad(lon2 - lon1);
   var a =
-    Math.sin((dLat) / 2) * Math.sin((dLat) / 2) +
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(rad(lat1)) *
       Math.cos(rad(lat2)) *
-      Math.sin((dLong) / 2) *
-      Math.sin((dLong) / 2);
+      Math.sin(dLong / 2) *
+      Math.sin(dLong / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c;
   return d.toFixed(2); //Retorna tres decimales
