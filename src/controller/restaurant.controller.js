@@ -75,30 +75,29 @@ restaurantsCtrl.renderEditRestaurant = async (req, res) => {
   }
   res.render("restaurants/edit_restaurant", { restaurant });
 };
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
 
 restaurantsCtrl.filter = async (req, res) => {
   const latitudUser = req.user.latitud;
   const longitudUser = req.user.longitud;
   const restaurants = await Restaurant.find().lean();
   const latidudRestaurant = restaurants.map((restaurant) => restaurant.latitud);
-  const longitudRestaurant = restaurants.map(
-    (restaurant) => restaurant.longitud
-  );
+  const longitudRestaurant = restaurants.map((restaurant) => restaurant.longitud,);
+  const restaurantName = restaurants.map((restaurant) => restaurant.name);
   const distancia = [];
-  if (req.body.distancia) {
+  if (req.body.distancia) { 
     for (var i = 0; i < latidudRestaurant.length; i++) {
       for (var j = 0; j < longitudRestaurant.length; j++) {
-        var km =
-          getKilometros(
-            latitudUser,
-            longitudUser,
-            latidudRestaurant[i],
-            longitudRestaurant[j]
-          );
+        var km = getKilometros(latitudUser,longitudUser,latidudRestaurant[i],longitudRestaurant[j]);
       }
+      restaurantName.push(restaurants[i].name);
       distancia.push(km);
     }
-    
+    var unique = restaurantName.filter(onlyUnique);
+    console.log(distancia);
+    console.log(unique);
   }
   if (req.body.speciality) {
     const restaurants = await Restaurant.find({
