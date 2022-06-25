@@ -87,6 +87,7 @@ restaurantsCtrl.filter = async (req, res) => {
   const longitudRestaurant = restaurants.map((restaurant) => restaurant.longitud,);
   const restaurantName = restaurants.map((restaurant) => restaurant.name);
   const distancia = [];
+  const restaurantes = [];
   if (req.body.distancia == "10") { 
     for (var i = 0; i < latidudRestaurant.length; i++) {
       for (var j = 0; j < longitudRestaurant.length; j++) {
@@ -95,18 +96,25 @@ restaurantsCtrl.filter = async (req, res) => {
       restaurantName.push(restaurants[i].name);
       distancia.push(km);
     }
-    var unique = restaurantName.filter(onlyUnique);
-    var object = JSON.stringify({distancia: distancia, restaurantName: unique});
-    for(var i = 0; i < distancia.length; i++){
-      for(var j = 0; j < unique.length; j++){
-        var object = JSON.stringify({distancia: distancia[i], restaurantName: unique[j]});
-      }
-      console.log(object);  
-    }
-    console.log(unique);
-    console.log(distancia);
-    console.log(object);
+      restaurantName.filter(onlyUnique);
     
+    for(var i = 0; i < distancia.length; i++){
+        var object = JSON.stringify({distancia: distancia[i], restaurantName: restaurantName[i]});
+        restaurantes.push(JSON.parse(object));
+    }
+    
+    restaurantes.filter(onlyUnique);
+    for(var i = 0; i < restaurantes.length; i++){
+        if(restaurantes[i].distancia == false){
+          restaurantes[i].distancia.splice(i,1);
+          restaurantes[i].restaurantName.splice(i,1);
+          break;
+        }
+    }
+    console.log(restaurantes);
+    //const resutorants = await Restaurant.find({name: {$in: restaurantes}}).lean();
+    //return res.render("restaurants/restaurants", { resutorants });
+
 
   }
 
