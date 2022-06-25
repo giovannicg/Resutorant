@@ -87,17 +87,27 @@ restaurantsCtrl.filter = async (req, res) => {
   const longitudRestaurant = restaurants.map((restaurant) => restaurant.longitud,);
   const restaurantName = restaurants.map((restaurant) => restaurant.name);
   const distancia = [];
-  if (req.body.distancia) { 
+  if (req.body.distancia == "10") { 
     for (var i = 0; i < latidudRestaurant.length; i++) {
       for (var j = 0; j < longitudRestaurant.length; j++) {
-        var km = getKilometros(latitudUser,longitudUser,latidudRestaurant[i],longitudRestaurant[j]);
+        var km = getKilometros(latitudUser,longitudUser,latidudRestaurant[i],longitudRestaurant[j])<10;
       }
       restaurantName.push(restaurants[i].name);
       distancia.push(km);
     }
     var unique = restaurantName.filter(onlyUnique);
-    console.log(distancia);
+    var object = JSON.stringify({distancia: distancia, restaurantName: unique});
+    for(var i = 0; i < distancia.length; i++){
+      for(var j = 0; j < unique.length; j++){
+        var object = JSON.stringify({distancia: distancia[i], restaurantName: unique[j]});
+      }
+      console.log(object);  
+    }
     console.log(unique);
+    console.log(distancia);
+    console.log(object);
+    
+
   }
   if (req.body.speciality) {
     const restaurants = await Restaurant.find({
