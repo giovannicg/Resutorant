@@ -88,6 +88,7 @@ restaurantsCtrl.filter = async (req, res) => {
   const restaurantName = restaurants.map((restaurant) => restaurant.name);
   const distancia = [];
   const restaurantes = [];
+  //funcion para ver los restaurantes a menos de 10 km de la ubicacion del usuario
   if (req.body.distancia == "10") { 
     for (var i = 0; i < latidudRestaurant.length; i++) {
       for (var j = 0; j < longitudRestaurant.length; j++) {
@@ -104,18 +105,47 @@ restaurantsCtrl.filter = async (req, res) => {
     }
     
     restaurantes.filter(onlyUnique);
-    for(var i = 0; i < restaurantes.length; i++){
-        if(restaurantes[i].distancia == false){
-          restaurantes[i].distancia.splice(i,1);
-          restaurantes[i].restaurantName.splice(i,1);
-          break;
-        }
+    restaurantes.forEach(function (item){
+      if(item.distancia == false){
+        item.distancia = "";
+        item.restaurantName = "";
+      }
+    })
+    
+    var names = restaurantes.map((restaurantes) => restaurantes.restaurantName)
+    console.log(names);
+    const resutorants = await Restaurant.find({name: {$in: names}}).sort({ score: "desc" }).lean();
+    return res.render("restaurants/restaurants", { resutorants });
+  }
+
+  //funcion para ver los restaurantes a mas de 10 km de la ubicacion del usuario
+  if (req.body.distancia == "11") { 
+    for (var i = 0; i < latidudRestaurant.length; i++) {
+      for (var j = 0; j < longitudRestaurant.length; j++) {
+        var km = getKilometros(latitudUser,longitudUser,latidudRestaurant[i],longitudRestaurant[j])>10;
+      }
+      restaurantName.push(restaurants[i].name);
+      distancia.push(km);
     }
-    console.log(restaurantes);
-    //const resutorants = await Restaurant.find({name: {$in: restaurantes}}).lean();
-    //return res.render("restaurants/restaurants", { resutorants });
-
-
+      restaurantName.filter(onlyUnique);
+    
+    for(var i = 0; i < distancia.length; i++){
+        var object = JSON.stringify({distancia: distancia[i], restaurantName: restaurantName[i]});
+        restaurantes.push(JSON.parse(object));
+    }
+    
+    restaurantes.filter(onlyUnique);
+    restaurantes.forEach(function (item){
+      if(item.distancia == false){
+        item.distancia = "";
+        item.restaurantName = "";
+      }
+    })
+    
+    var names = restaurantes.map((restaurantes) => restaurantes.restaurantName)
+    console.log(names);
+    const resutorants = await Restaurant.find({name: {$in: names}}).sort({ score: "desc" }).lean();
+    return res.render("restaurants/restaurants", { resutorants });
   }
 
   if (req.body.speciality) {
@@ -174,6 +204,6 @@ getKilometros = function (lat1, lon1, lat2, lon2) {
       Math.sin(dLong / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c;
-  return d.toFixed(2); //Retorna tres decimales
+  return d.toFixed(2); 
 };
 module.exports = restaurantsCtrl;
