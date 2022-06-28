@@ -4,7 +4,8 @@
         <div class="card border-primary mb-3" style="max-width: 20rem;">
             <div class="card-body">
                 <h4 class="card-title d-flex justify-content-between align-items-center">
-                    {{this.name}}
+                    {{this.name}} <a href="/restaurant/comments/{{_id}}" class="btn border-shadow update">
+                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span></a>
                 </h4>
                 <p>{{this.speciality}}</p>
                 <p>{{this.location}}</p>
@@ -12,6 +13,7 @@
                 <p>{{this.precio}}</p>
                 <p>{{this.latitud}}</p>
                 <p>{{this.longitud}}</p>
+
             </div>
         </div>
     </div>

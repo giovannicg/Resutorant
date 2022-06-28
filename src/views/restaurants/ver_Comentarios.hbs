@@ -1,0 +1,17 @@
+<div class="row">
+    {{#each ratings}}
+        <div class="col-md-3">
+            <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card-body">
+                    <h4 class="card-title d-flex justify-content-between align-items-center">
+                        {{this.restaurant}}
+                    </h4>
+                    <p>{{this.score}} <a href="/restaurant/comentario/calificar/{{_id}}" class="btn border-shadow update">
+                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span></a></p>
+                    <p>{{this.comment}}</p>
+                </div>
+            </div>
+        </div>
+
+    {{/each}}
+</div>
