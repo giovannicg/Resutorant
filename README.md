@@ -27,8 +27,8 @@ Despues de esas dos instrucciones el proyecto estaria corriendo localmente
 
 Despues de desplegar la apliacion para ingresar puedes usar el siguiente usuario:
 
-_Email: travisgreer1766@outlook.edu
-_Contraseña : prueba
+_Email: travisgreer1766@outlook.edu_
+_Contraseña : prueba_
 
 O tambien puedes crear tu propio usuario.
 
