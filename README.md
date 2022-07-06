@@ -32,6 +32,11 @@ _Contraseña : prueba_
 
 O tambien puedes crear tu propio usuario.
 
+## Core Proyecto
+
+El core del proyecto calcula la longitud y latitud proporciandas por el usuario y la de todos los restaurantes creados
+y se puede filtrar esta distancia para que solo aprezcan restaurantes a menos o a mas de 10 km
+
 ## Autores ✒️
 
 Giovanni Capote (Estudiante de Software Universidad de las Americas
