@@ -3,7 +3,7 @@
 _Proyecto de creacion y visualizacion de restaurantes_
 
 Link Deploy Heroku:
-https://resutorantp.herokuapp.com
+https://resutorant.herokuapp.com
 
 ## Pre-requisitos 📋
 
